@@ -1,8 +1,9 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { SignupDto } from './dto/signup.dto';
 import { User } from './models/users.model';
 import { SigninDto } from './dto/signin.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -20,4 +21,12 @@ export class UsersController {
   public async signin(@Body() signinDto: SigninDto): Promise<{ name: string; jwtToken: string; email: string; }> {
     return this.usersService.signin(signinDto);
   }
+
+  @Get()
+  @UseGuards(AuthGuard('jwt')) //Definindo rota privada (Só será acessada se tiver um token válido)
+  @HttpCode(HttpStatus.OK)
+  public async findAll(): Promise<User[]> {
+    return this.usersService.findAll();
+  }
+  
 }
