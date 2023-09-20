@@ -20,9 +20,9 @@ export class UsersService {
     return user.save();
   }
 
-  public async signin(siginDto: SigninDto): Promise<{ name: string; jwtToken: string; email: string; }> {
-    const user = await this.findByEmail(siginDto.email);
-    const match = await this.checkPassword(siginDto.password, user);
+  public async signin(signinDto: SigninDto): Promise<{ name: string; jwtToken: string; email: string; }> {
+    const user = await this.findByEmail(signinDto.email);
+    const match = await this.checkPassword(signinDto.password, user);
 
     if(!match) {
       throw new NotFoundException('Invalid credentials.');

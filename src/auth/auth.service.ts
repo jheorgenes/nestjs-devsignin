@@ -38,7 +38,7 @@ export class AuthService {
       throw new BadRequestException('Bad request.');
     }
 
-    const [, token ] = authHeader.split(' ');
+    const [, token ] = authHeader.split(' '); //Destructuring do token separando o Bearer do token pelo espaço.
 
     return token;
   }

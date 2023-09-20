@@ -19,10 +19,10 @@ UsersSchema.pre('save', async function(next: mongoose.CallbackWithoutResultAndOp
   try {
     // Se a senha não foi modificada, não faça nada
     if(!this.isModified('password')) {
-      return next();
+      return next(); //Prossegue para a próxima requisição
     }
 
-    // Se foi modificada, faça a encryptação
+    // Se foi modificada, faça a encryptação da nova senha
     this['password'] = await bcrypt.hash(this['password'], 10);
 
   } catch (error) {
